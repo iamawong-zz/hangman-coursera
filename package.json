@@ -1,0 +1,12 @@
+{
+	"name": "coursera-hangman",
+	"version": "0.0.1",
+	"author": "Andrew Wong <iamawong@outlook.com>",
+	"description": "Play Hangman using Coursera's API",
+	"dependencies": {
+			"ams"		: "0.0.x",
+			"connect" 	: "2.0.x",
+			"request"	: "2.x.x",
+			"socket.io"	: "0.9.x"
+	}
+}

@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+html, body {
+    width: 100%;
+}
+body, textarea {
+    font: 13px/19px sans-serif !important;
+}
+h1, h2, h3 {
+    font-family: 'Arial Narrow', 'Arial', sans-serif;
+    line-height: 0.7em;
+    font-weight: normal;
+}
+h1 {
+    font-size: 35px;
+}
+a, a:link {
+    color: #000;
+    text-decoration: none;
+    border-bottom: 1px solid #fff;
+    cursor: pointer;
+}
+
+a:hover {
+    border-color: #000
+}

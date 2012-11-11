@@ -10,6 +10,7 @@ var Game = function(socket) {
 Game.prototype.registerPlayer = function(socket) {
     var self = this;
     CLIENT_EVENTS.forEach(function(event) {
+	console.log('REGISTERING EVENT ' + event);
 	socket.on(event, self.handleClientMessage(event, socket));
     });
 }

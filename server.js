@@ -44,7 +44,7 @@ app = connect()
     .use(urls)
     .use(connect.static(publicDir));
 
-server = http.createServer(app).listen(3000);
+server = http.createServer(app).listen(process.env.PORT || 3000);
 
 socket = socket.listen(server);
 socket.configure('production', function() {

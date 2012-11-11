@@ -24,7 +24,7 @@ Game.prototype.handleClientMessage = function(event, socket) {
 
 Game.prototype.start = function() {
     this.makeRequest(BASE_URI, {
-	"email" : "iamawong@outlook.com"
+	"email" : "iamawongtest@outlook.com"
     });
 }
 
@@ -61,6 +61,7 @@ Game.prototype.responseCall = function(game) {
 	} else {
 	    console.log('failed call');
 	    console.log(response.statusCode);
+	    console.log(response.body);
 	}
     }   
 }

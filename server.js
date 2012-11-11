@@ -64,8 +64,10 @@ socket.configure('production', function() {
 socket.sockets.on('connection', function(socket) {
     var game = null;
     socket.on('initialize', function(msg) {
+	console.log('blah!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 	game = new Game(socket);
 	game.registerPlayer(socket);
+	console.log('blah@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     });
 
     socket.on('disconnect', function() {

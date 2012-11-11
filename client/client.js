@@ -3,9 +3,7 @@ var SERVER_EVENTS = ['round', 'over']
 , socket;
 
 function startGame() {
-    console.log('starting game');
     socket = io.connect();
-    console.log('connected');
 
     socket.on('connect', function() {
 	socket.emit('initialize');

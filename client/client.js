@@ -7,6 +7,7 @@ function startGame() {
 
     socket.on('connect', function() {
 	socket.emit('initialize');
+	$('#start').css("visibility", "visible");
     });
     
     SERVER_EVENTS.forEach(function(event) {

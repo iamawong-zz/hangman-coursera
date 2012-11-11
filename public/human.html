@@ -12,8 +12,30 @@
         <a href="/">COURSERA HANGMAN</a>
       </h1>
     </div>
+    <div id="start">
+      <h2><a>Start a new game</a></h2>
+    </div>
     <div id="wrap">
+      <div id="message">
+	<h2>
+	</h2>
+      </div>
+      <div id="phrase">
+	<h2>
+	</h2>
+      </div>
+      <div id="guess">
+	<h2>GUESSED LETTERS: </h2><h3>ABCDEFGH</h3>
+      </div>
     </div>
   </body>
-  <script src="/game.js"></script>
+  <script src="/load.js"></script>
+  <script>
+    head.js('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'
+    , '/socket.io/socket.io.js'
+    , '/client.js'
+    , function() {
+      $(startGame);
+    });
+  </script>
 </html>

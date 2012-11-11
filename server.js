@@ -2,7 +2,7 @@ var http = require('http')
 , socket = require('socket.io')
 , ams = require('ams')
 , connect = require('connect')
-, game = require('./game')
+, Game = require('./game')
 , app
 , server
 , clientDir = __dirname + '/client'
@@ -20,6 +20,7 @@ function configFiles() {
 	.create(publicDir)
 	.add(clientDir + '/client.js')
 	.add(clientDir + '/style.css')
+        .add(__dirname + '/headjs/src/load.js')
 	.process(options)
 	.write(publicDir)
 	.end()
@@ -34,23 +35,6 @@ function urls(req, res, next) {
 	req.url = '/index.html';
     }
     return next();
-}
-
-function getHash() {
-    do { 
-	var hash = randString(5);
-    } while (hash in games);
-    return hash;
-}
-
-var CHARSET = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','T','V','W','X','Y','Z'];
-
-function randString(num) {
-    var string = "";
-    while (string.length < num) {
-	string += CHARSET[Math.floor(Math.random() * CHARSET.length)];
-    }
-    return string;
 }
 
 configFiles();
@@ -80,9 +64,8 @@ socket.configure('production', function() {
 socket.sockets.on('connection', function(socket) {
     var game = null;
     socket.on('initialize', function(msg) {
-	game = new Game(socket, getHash());
+	game = new Game(socket);
 	game.registerPlayer(socket);
-	socket.emit('hash', game.hash);
     });
 
     socket.on('disconnect', function() {

@@ -2,9 +2,8 @@ var CLIENT_EVENTS = ['start', 'guess']
 , BASE_URI = 'http://hangman.coursera.org/hangman/game'
 , request = require('request');
 
-var Game = function(socket, hash) {
+var Game = function(socket) {
     this.socket = socket;
-    this.hash = hash;
     this.key = null;
 }
 
@@ -23,15 +22,15 @@ Game.prototype.handleClientMessage = function(event, socket) {
     }
 }
 
-Game.prototype.start = function(msg) {
+Game.prototype.start = function() {
     this.makeRequest(BASE_URI, {
 	"email" : "iamawong@outlook.com"
     });
 }
 
-Game.prototype.guess = function(msg) {
+Game.prototype.guess = function(keycode) {
     this.makeRequest(BASE_URI + '/' + this.key, {
-	"guess" : msg.guess
+	"guess" : String.fromCharCode(keycode);
     });
 }
 
@@ -39,33 +38,34 @@ Game.prototype.makeRequest = function(uri, data) {
     request(uri, {
 	method: 'POST',
 	json: data
-    }, this.responseCall);
+    }, this.responseCall(this));
 }
 
-Game.prototype.responseCall = function(error, response, data) {
-    if (!error && 200 == response.statusCode) {
-	console.log('got a response');
-	console.log(data);
-	this.key = data.game_key;
-	if ('alive' == data.state) {
-	    this.sendMessage('round', {
-		numleft : data.num_tries_left,
-		phrase : data.phrase
-	    });
+Game.prototype.responseCall = function(game) {
+    return function(error, response, data) {
+	if (!error && 200 == response.statusCode) {
+	    console.log('got a response');
+	    console.log(data);
+	    game.key = data.game_key;
+	    if ('alive' == data.state) {
+		game.sendMessage('round', {
+		    numleft : data.num_tries_left,
+		    phrase : data.phrase
+		});
+	    } else {
+		game.sendMessage('over', {
+		    state : data.state,
+		    phrase: data.phrase
+		});
+	    }
 	} else {
-	    this.sendMessage('over', {
-		state : data.state,
-		phrase: data.phrase
-	    });
+	    console.log('failed call');
+	    console.log(response.statusCode);
 	}
-    } else {
-	console.log('failed call');
-	console.log(response.statusCode);
-    }
+    }   
 }
 
 Game.prototype.sendMessage = function(event, msg) {
-    console.log('for game: ' + this.hash);
     console.log('sending message: ' + event + ' with message: ' + msg);
     this.socket.emit(event, msg);
 }

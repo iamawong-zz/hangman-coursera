@@ -64,6 +64,7 @@ function autoGuess() {
 function round(data) {
     updatePhrase(data.phrase);
     updateMessage(data.numleft + ' guesses left' + (automated ? ' for the computer.' : '. Type a letter and press enter to guess.'));
+    // If we are watching the computer play, it'll guess every two seconds.
     if (automated) {
 	setTimeout(autoGuess, 2000);
     }
@@ -85,9 +86,9 @@ function over(data) {
     $(document).keypress(function(event){});
     $('#start, #comp').css("visibility", "visible");
     if ('won' === data.state) {
-	updateMessage('Congrats, you won! Try again?');
+	updateMessage('Congrats,' + (automated ? ' computer' : ' you') + ' won! Try again?');
     } else {
-	updateMessage('Aww, you lost. Try again?');
+	updateMessage('Aww,' + (automated ? ' computer' : ' you') + ' lost. Try again?');
     }
 }
 

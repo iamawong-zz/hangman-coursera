@@ -30,7 +30,7 @@ Game.prototype.start = function() {
 
 Game.prototype.guess = function(keycode) {
     this.makeRequest(BASE_URI + '/' + this.key, {
-	"guess" : String.fromCharCode(keycode);
+	"guess" : String.fromCharCode(keycode)
     });
 }
 

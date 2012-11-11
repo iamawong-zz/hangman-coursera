@@ -48,30 +48,32 @@ server = http.createServer(app).listen(process.env.PORT || 3000);
 
 socket = socket.listen(server);
 socket.configure('production', function() {
-  socket.enable('browser client minification');  // send minified client
-  socket.enable('browser client etag');          // apply etag caching logic based on version number
-  socket.enable('browser client gzip');          // gzip the file
-  socket.set('log level', 1);                    // reduce logging
-  socket.set('transports', [                     // enable all transports (optional if you want flashsocket)
+    socket.enable('browser client minification');  // send minified client
+    socket.enable('browser client etag');          // apply etag caching logic based on version number
+    socket.enable('browser client gzip');          // gzip the file
+    socket.set('log level', 1);                    // reduce logging
+    socket.set('transports', [                     // enable all transports (optional if you want flashsocket)
+	, 'xhr-polling'
+    ]);
+    socket.set("polling duration", 10);
+    /*
+      socket.set('transports', [                     // enable all transports (optional if you want flashsocket)
       'websocket'
-    , 'flashsocket'
-    , 'htmlfile'
-    , 'xhr-polling'
-    , 'jsonp-polling'
-  ]);
+      , 'flashsocket'
+      , 'htmlfile'
+      , 'xhr-polling'
+      , 'jsonp-polling'
+      ]);*/
 });
 
 socket.sockets.on('connection', function(socket) {
     var game = null;
     socket.on('initialize', function(msg) {
-	console.log('blah!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 	game = new Game(socket);
 	game.registerPlayer(socket);
-	console.log('blah@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     });
 
     socket.on('disconnect', function() {
-	console.log("DISCONNECTION%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 	game = null;
     });
 });

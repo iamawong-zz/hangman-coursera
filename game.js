@@ -28,10 +28,9 @@ Game.prototype.start = function() {
     });
 }
 
-Game.prototype.guess = function(keycode) {
-    var charguess = String.fromCharCode(keycode);
+Game.prototype.guess = function(letter) {
     this.makeRequest(BASE_URI + '/' + this.key, {
-	"guess" : charguess
+	"guess" : letter
     });
 }
 

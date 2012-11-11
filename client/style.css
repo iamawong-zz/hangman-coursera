@@ -17,7 +17,7 @@ h1, h2, h3 {
 h1 {
     font-size: 55px;
 }
-h2 {
+h2, h3 {
     font-size: 35px;
 }
 a, a:link {
@@ -30,12 +30,13 @@ a:hover {
     border-color: #000
 }
 #guess {
-    width: 100%;
+    width: 120%;
     font-size: 20px;
     margin: 30px auto auto auto;
 }
 #guess h2 {
     float: left;
+    margin-right: 10px;
 }
 #guess h3 {
     float: left;
@@ -58,6 +59,9 @@ a:hover {
     width: 100%;
     margin: 0px auto 20px auto;
     text-align: center;
+}
+#message h2 {
+    line-height: 1.0em;
 }
 #phrase {
     width: 100%;

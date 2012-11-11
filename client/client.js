@@ -1,4 +1,5 @@
 var SERVER_EVENTS = ['round', 'over']
+, guessed
 , socket;
 
 function startGame() {
@@ -19,31 +20,39 @@ function start(event) {
     $('#start').css("visibility", "hidden");
     $('#wrap').show();
     $(document).keypress(guess);
+    clearGuessed();
     socket.emit('start');
     event.preventDefault();
 }
 
 function guess(e) {
-    console.log(e);
     var self = this;
-    if (e.keyCode == 13 && !e.ctrlKey && this.value) {
+    if (e.keyCode == 13 && !e.ctrlKey && this.value && guessed.indexOf(this.value) < 0) {
 	socket.emit('guess', this.value);
+	addLetter(this.value);
 	this.value = "";
 	e.preventDefault();
     } else if (e.keyCode >= 97 && e.keyCode <= 122) {
-	console.log('saving keycode');
-	this.value = e.keyCode;
+	this.value = String.fromCharCode(e.keyCode);
     }
 }
 
 function round(data) {
-    console.log(data);
     updatePhrase(data.phrase);
-    updateMessage(data.numleft + ' guesses left');
+    updateMessage(data.numleft + ' guesses left. Type a letter and press enter to guess.');
+}
+
+function addLetter(letter) {
+    guessed  = guessed + letter;
+    $('#guess').children('h3').append(letter.toUpperCase());
+}
+
+function clearGuessed() {
+    guessed = "";
+    $('#guess').children('h3').empty();
 }
 
 function over(data) {
-    console.log(data);
     updatePhrase(data.phrase);
     $(document).keypress(function(event){});
     $('#start').css("visibility", "visible");

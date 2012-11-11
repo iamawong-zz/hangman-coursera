@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="Coursera - Hangman"/>
-    <title>Coursera Hangman - Automated</title>
+    <title>Coursera Hangman - Human</title>
     <link rel="stylesheet" href="/style.css"/>
   </head>
   <body>
@@ -12,8 +12,30 @@
         <a href="/">COURSERA HANGMAN</a>
       </h1>
     </div>
+    <div id="comp">
+      <h2><a>Watch the computer play</a></h2>
+    </div>
     <div id="wrap">
+      <div id="message">
+	<h2>
+	</h2>
+      </div>
+      <div id="phrase">
+	<h2>
+	</h2>
+      </div>
+      <div id="guess">
+	<h2>GUESSED LETTERS: </h2><h3></h3>
+      </div>
     </div>
   </body>
   <script src="/load.js"></script>
+  <script>
+    head.js('http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js'
+    , '/socket.io/socket.io.js'
+    , '/client.js'
+    , function() {
+      $(initGame);
+    });
+  </script>
 </html>

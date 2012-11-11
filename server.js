@@ -52,10 +52,8 @@ socket.configure('production', function() {
     socket.enable('browser client etag');          // apply etag caching logic based on version number
     socket.enable('browser client gzip');          // gzip the file
     socket.set('log level', 1);                    // reduce logging
-    socket.set('transports', [                     // enable all transports (optional if you want flashsocket)
-	, 'xhr-polling'
-    ]);
-    socket.set("polling duration", 10);
+    socket.set('transports', ['xhr-polling']);
+    socket.set('polling duration', 10);
     /*
       socket.set('transports', [                     // enable all transports (optional if you want flashsocket)
       'websocket'

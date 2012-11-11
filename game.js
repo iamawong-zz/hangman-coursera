@@ -29,8 +29,9 @@ Game.prototype.start = function() {
 }
 
 Game.prototype.guess = function(keycode) {
+    var charguess = String.fromCharCode(keycode);
     this.makeRequest(BASE_URI + '/' + this.key, {
-	"guess" : String.fromCharCode(keycode)
+	"guess" : charguess
     });
 }
 

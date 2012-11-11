@@ -47,7 +47,7 @@ app = connect()
 server = http.createServer(app).listen(process.env.PORT || 3000);
 
 socket = socket.listen(server);
-socket.configure('production', function() {
+socket.configure(function() {
     socket.enable('browser client minification');  // send minified client
     socket.enable('browser client etag');          // apply etag caching logic based on version number
     socket.enable('browser client gzip');          // gzip the file
